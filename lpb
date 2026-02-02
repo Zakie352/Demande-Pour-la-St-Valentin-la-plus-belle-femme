@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Valentine !</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff69b4; /* Hot Pink */
+            --light-pink: #ffe4e1; /* Misty Rose */
+            --dark-pink: #c71585; /* Medium Violet Red */
+            --text-color: #4a4a4a;
+            --button-yes-bg: linear-gradient(145deg, #ff8dc7, #ff52a3);
+            --button-yes-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            --button-no-bg: linear-gradient(145deg, #ff4d4d, #b30000);
+            --button-no-shadow: 0 4px 15px rgba(120, 120, 120, 0.3);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: var(--light-pink);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            overflow: hidden; /* Pour les confettis */
+            position: relative;
+        }
+
+        /* Confetti effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-pink);
+            opacity: 0;
+            animation: confetti-fall 3s forwards ease-out;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .confetti.pink { background-color: var(--primary-pink); }
+        .confetti.red { background-color: #ff0000; }
+        .confetti.white { background-color: #ffffff; }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotateZ(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; }
+        }
+
+        #container {
+            background: linear-gradient(180deg, #ffffff, #fde7f4);
+            padding: 3rem 4rem;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15), inset 0 0 15px rgba(255, 255, 255, 0.6);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 3px solid var(--primary-pink);
+            animation: fadeInScale 1s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--dark-pink);
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .buttons {
+            margin-top: 3rem;
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: var(--button-yes-shadow);
+            text-transform: uppercase;
+        }
+
+        #yesBtn {
+            background: var(--button-yes-bg);
+            color: white;
+            box-shadow: var(--button-yes-shadow);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6);
+        }
+
+        #noBtn {
+            background: var(--button-no-bg);
+            color: white;
+            position: relative;
+            box-shadow: var(--button-no-shadow);
+        }
+
+        .gif {
+            width: 250px;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary-pink);
+        }
+
+        /* Final message styling */
+        #finalMessage {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: var(--dark-pink);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+            margin-top: 2rem;
+        }
+        #finalSubtext {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-top: 1rem;
+        }
+
+        /* Hearts background animation */
+        .heart {
+            position: absolute;
+            background-color: var(--primary-pink);
+            width: 15px;
+            height: 15px;
+            transform: rotate(-45deg);
+            animation: floatHearts 10s infinite ease-in-out;
+            opacity: 0.6;
+            z-index: 0;
+            filter: blur(1px);
+        }
+        .heart::before, .heart::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--primary-pink);
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -7.5px;
+            left: 0;
+        }
+        .heart::after {
+            left: 7.5px;
+            top: 0;
+        }
+
+        @keyframes floatHearts {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYXR2M3VjYW5jY3I1NXBwNnMyYWJtemdueHZpODBhZWthNjdvMWNrdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vYME0QCGRJl6g/giphy.gif" alt="Cute love gif" class="gif">
+        
+        <h1 id="question">Veux-tu être ma Valentine ? ❤️</h1>
+
+        <div class="buttons">
+            <button id="yesBtn">Oui, avec joie !</button>
+            <button id="noBtn">Non...</button>
+        </div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const question = document.getElementById('question');
+        const container = document.getElementById('container');
+        let yesSize = 1.0; // Taille initiale du bouton Oui
+        const buttonSounds = {
+            click: new Audio('https://www.soundjay.com/buttons/button-click-01.mp3'),
+            hover: new Audio('https://www.soundjay.com/buttons/button-hover-01.mp3') // Optional: add hover sound
+        };
+
+        // Création des coeurs flottants en arrière-plan
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 5 + 5 + 's'; // 5-10 seconds
+            heart.style.animationDelay = Math.random() * 5 + 's'; // Start at different times
+            document.body.appendChild(heart);
+
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+
+        // Générer des coeurs en continu
+        setInterval(createHeart, 500); // toutes les 0.5 secondes
+
+        // Fonction pour générer les confettis
+        function createConfetti(x, y) {
+            const colors = ['pink', 'red', 'white'];
+            for (let i = 0; i < 50; i++) { // 50 confettis par explosion
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+                confetti.style.left = x + 'px';
+                confetti.style.top = y + 'px';
+                confetti.style.transform = `translateY(${Math.random() * -100}px) translateX(${Math.random() * 200 - 100}px) rotateZ(${Math.random() * 360}deg)`;
+                confetti.style.animationDelay = (Math.random() * 0.5) + 's';
+                document.body.appendChild(confetti);
+
+                confetti.addEventListener('animationend', () => {
+                    confetti.remove();
+                });
+            }
+        }
+
+        // Bouton "Non" s'échappe et fait grossir le "Oui"
+        noBtn.addEventListener('mouseover', () => {
+            // buttonSounds.hover.play(); // Play hover sound (optional)
+            const containerRect = container.getBoundingClientRect();
+            const noBtnRect = noBtn.getBoundingClientRect();
+
+            // Calculer de nouvelles positions à l'intérieur du conteneur parent
+            let newX = Math.random() * (containerRect.width - noBtnRect.width);
+            let newY = Math.random() * (containerRect.height - noBtnRect.height);
+
+            // Ajuster les positions pour qu'elles soient relatives au conteneur
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+
+            // Faire grossir le bouton Oui à chaque tentative d'esquive
+            yesSize += 0.15; // Moins agressif que 0.2
+            yesBtn.style.transform = `scale(${yesSize})`;
+        });
+
+        // Quand elle clique sur "Oui"
+        yesBtn.addEventListener('click', (event) => {
+            buttonSounds.click.play();
+            // Effacer le contenu existant et afficher le message final
+            container.innerHTML = `
+                <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHA2cGVsa3gyN2E5N3Y3dWVzY2U4ZDUxejJpdHcxMXByN2Yzd2dxOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LbC9yf16pIS74lXTDc/giphy.gif" alt="Happy gif" class="gif">
+                <h1 id="finalMessage">LETS GOOOO ! Ca me touche Merci ! 😘</h1>
+                <p id="finalSubtext">J'ai hâte de passer la Saint-Valentin avec toi ! On se voit le 14 !!!</p>
+            `;
+            // Appliquer le style final au conteneur
+            container.style.padding = '4rem 3rem'; // Plus de padding pour le message final
+            container.style.borderColor = '#4CAF50'; // Une bordure verte pour le succès
+
+            // Lancer les confettis à la position du clic
+            createConfetti(event.clientX, event.clientY);
+        });
+
+        // Pour gérer les sons (pour éviter les erreurs si les fichiers ne chargent pas)
+        document.querySelectorAll('audio').forEach(audio => {
+            audio.onerror = () => console.warn(`Impossible de charger le son : ${audio.src}`);
+        });
+    </script>
+</body>
+</html>
